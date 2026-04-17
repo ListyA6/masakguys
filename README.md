@@ -85,9 +85,13 @@ First concrete implementation: the Pedesan brand customer-order site. Static fro
 
 **Pages (current):**
 - `/` — landing (hero, queue, highlights, story, video, CTA, kritik-saran)
+- `/order.html` — Instagram-feed menu (category tabs, carousel posts, double-tap love, add-to-cart stepper, catatan, floating cart)
+- `/checkout.html` — checkout (geolocation delivery fee, payment: tunai/QRIS/transfer)
+- `/status.html?id=xxx` — live 5-phase order tracker
 
 **Docs:**
 - Spec: `docs/superpowers/specs/2026-04-17-pedesan-site-design.md`
 - Plan 1: `docs/superpowers/plans/2026-04-17-plan-1-foundation-and-landing.md`
+- Plan 2: `docs/superpowers/plans/2026-04-17-plan-2-customer-order-flow.md`
 
 **Tests:** `http://localhost/masakguys/tests/tests.html`
