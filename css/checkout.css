@@ -45,6 +45,7 @@
 .co__pay span { font-size: var(--fs-sm); }
 
 .co__tunai { display: grid; gap: var(--s-2); }
+[hidden] { display: none !important; }
 .co__change { font-weight: 700; color: var(--accent-2); }
 .co__change.err { color: var(--danger); }
 .co__pay-note { color: var(--fg-1); font-size: var(--fs-sm); background: rgba(255,255,255,.03); padding: var(--s-3); border-radius: var(--r-2); }
