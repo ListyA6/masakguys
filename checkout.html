@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout — Pedesan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/chat-widget.css" />
+  <link rel="stylesheet" href="css/checkout.css" />
+</head>
+<body>
+  <header class="co-header">
+    <a href="order.html" class="co-header__back" aria-label="Kembali">←</a>
+    <h1>Checkout</h1>
+    <span></span>
+  </header>
+
+  <main class="co container">
+    <section class="co__summary" data-summary>
+      <h2>Ringkasan Pesanan</h2>
+      <div data-summary-items></div>
+    </section>
+
+    <form class="co__form" data-form>
+      <section class="co__section">
+        <h2>Data Pengiriman</h2>
+        <label>Nama <span class="req">*</span>
+          <input type="text" name="nama" required />
+        </label>
+        <label>Nomor WhatsApp <span class="req">*</span>
+          <input type="tel" name="wa" required pattern="^(\+62|62|0)\d{8,14}$" placeholder="08123456789" />
+        </label>
+        <div class="co__loc">
+          <button type="button" class="btn btn--ghost" data-geo>📍 Bagikan Lokasi</button>
+          <div class="co__loc-status" data-geo-status>Belum ada lokasi</div>
+          <label class="co__manual">Atau pilih jarak manual:
+            <select name="manual_tier" data-manual-tier>
+              <option value="">—</option>
+              <option value="3">≤ 3 km</option>
+              <option value="4">3–4 km</option>
+              <option value="5">5 km</option>
+              <option value="10">&gt; 5 km</option>
+            </select>
+          </label>
+        </div>
+        <label>Alamat Lengkap <span class="req">*</span>
+          <textarea name="alamat" required rows="3" placeholder="Jalan, nomor rumah, patokan..."></textarea>
+        </label>
+      </section>
+
+      <section class="co__section">
+        <h2>Metode Pembayaran</h2>
+        <div class="co__payments">
+          <label class="co__pay"><input type="radio" name="payment" value="tunai" required /><span>💵 Tunai</span></label>
+          <label class="co__pay"><input type="radio" name="payment" value="qris" /><span>📱 QRIS</span></label>
+          <label class="co__pay"><input type="radio" name="payment" value="transfer" /><span>🏦 Transfer</span></label>
+        </div>
+        <div class="co__tunai" data-tunai hidden>
+          <label>Uang yang disiapkan
+            <input type="number" name="cash_given" min="0" step="1000" placeholder="50000" />
+          </label>
+          <div class="co__change" data-change>Kembalian: Rp0</div>
+        </div>
+        <p class="co__pay-note" data-paynote hidden></p>
+      </section>
+
+      <section class="co__totals">
+        <div><span>Subtotal makanan</span><strong data-subtotal>Rp0</strong></div>
+        <div><span>Ongkir</span><strong data-ongkir>Rp0</strong></div>
+        <div class="co__grand"><span>Total</span><strong data-total>Rp0</strong></div>
+      </section>
+
+      <button class="btn btn--lg co__submit" type="submit" disabled>Kirim Pesanan →</button>
+    </form>
+  </main>
+
+  <script src="js/utils.js"></script>
+  <script src="js/mock-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/chat-widget.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>
