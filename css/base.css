@@ -28,3 +28,4 @@ p { margin: 0 0 var(--s-4); }
 .btn:hover { background: var(--accent-2); }
 .btn:active { transform: scale(.96); }
 .btn--ghost { background: transparent; border: 1px solid var(--fg-2); color: var(--fg-0); }
+:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 3px; }

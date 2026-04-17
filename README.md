@@ -71,3 +71,23 @@ Multi-brand ghost kitchen leveraging LalaFun's existing infrastructure (rice, ch
 ## Trigger to Activate
 
 > Mikro Pertanian order system live and running 30 days → begin Phase 1 brand launch prep.
+
+---
+
+## Pedesan brand site (this repo)
+
+First concrete implementation: the Pedesan brand customer-order site. Static frontend, XAMPP-served.
+
+**Run locally:**
+1. Install XAMPP.
+2. Place this repo at `C:/xampp/htdocs/masakguys/`.
+3. Start Apache, open `http://localhost/masakguys/`.
+
+**Pages (current):**
+- `/` — landing (hero, queue, highlights, story, video, CTA, kritik-saran)
+
+**Docs:**
+- Spec: `docs/superpowers/specs/2026-04-17-pedesan-site-design.md`
+- Plan 1: `docs/superpowers/plans/2026-04-17-plan-1-foundation-and-landing.md`
+
+**Tests:** `http://localhost/masakguys/tests/tests.html`
