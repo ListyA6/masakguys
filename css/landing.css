@@ -1,0 +1,45 @@
+/* css/landing.css */
+.hero {
+  position: relative; min-height: 100vh;
+  display: grid; place-items: center;
+  overflow: hidden; isolation: isolate;
+}
+.hero__bg {
+  position: absolute; inset: -10% -10% -10% -10%;
+  background:
+    radial-gradient(1200px 600px at 30% 30%, rgba(255,59,31,.35), transparent 60%),
+    radial-gradient(900px 500px at 75% 70%, rgba(255,164,27,.22), transparent 65%),
+    linear-gradient(180deg, #120807 0%, #0e0b0a 60%);
+  z-index: -2;
+}
+.hero__embers {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(2px 2px at 20% 30%, #ff6a3d, transparent 60%),
+                    radial-gradient(1px 1px at 70% 80%, #ffa41b, transparent 60%),
+                    radial-gradient(1.5px 1.5px at 40% 70%, #ff3b1f, transparent 60%),
+                    radial-gradient(1px 1px at 85% 15%, #ff8f6d, transparent 60%);
+  opacity: .55; mix-blend-mode: screen; animation: embers 6s linear infinite;
+}
+@keyframes embers { from { background-position: 0 0, 0 0, 0 0, 0 0; } to { background-position: 0 -400px, 0 -600px, 0 -500px, 0 -700px; } }
+
+.hero__inner { text-align: center; max-width: 900px; padding-top: 10vh; }
+.hero__eyebrow { color: var(--fg-1); letter-spacing: .3em; text-transform: uppercase; font-size: var(--fs-xs); }
+.hero__title {
+  font-size: clamp(72px, 16vw, var(--fs-5xl));
+  letter-spacing: .04em; color: var(--fg-0);
+  text-shadow: 0 2px 60px rgba(255,59,31,.4);
+  margin: var(--s-4) 0 var(--s-3);
+}
+.hero__tagline { font-size: clamp(var(--fs-lg), 2.2vw, var(--fs-2xl)); color: var(--fg-1); margin-bottom: var(--s-7); }
+.hero__cta { padding: var(--s-4) var(--s-6); font-size: var(--fs-lg); }
+.hero__scrollhint {
+  position: absolute; bottom: var(--s-5); left: 50%; transform: translateX(-50%);
+  font-size: var(--fs-xs); letter-spacing: .3em; text-transform: uppercase; color: var(--fg-2);
+  animation: nudge 2s ease-in-out infinite;
+}
+@keyframes nudge { 50% { transform: translate(-50%, 6px); } }
+
+.queue { padding: var(--s-9) 0; background: linear-gradient(180deg, var(--bg-0), var(--bg-1)); text-align: center; }
+.queue__label { text-transform: uppercase; letter-spacing: .3em; color: var(--fg-2); font-size: var(--fs-xs); margin-bottom: var(--s-4); }
+.queue__count { font-family: var(--font-display); font-size: clamp(96px, 18vw, 220px); line-height: 1; color: var(--accent); text-shadow: 0 0 80px rgba(255,59,31,.4); }
+.queue__tag { color: var(--fg-1); margin-top: var(--s-3); font-size: var(--fs-lg); }

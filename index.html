@@ -16,7 +16,29 @@
 </head>
 <body>
   <main data-scroll-container>
-    <!-- sections inserted by later tasks -->
+
+    <!-- HERO -->
+    <section class="hero" data-scroll-section>
+      <div class="hero__bg" data-scroll data-scroll-speed="-3"></div>
+      <div class="hero__embers" aria-hidden="true"></div>
+      <div class="hero__inner container" data-scroll data-scroll-speed="1">
+        <p class="hero__eyebrow">MasakGuys · Kediri</p>
+        <h1 class="hero__title">PEDESAN</h1>
+        <p class="hero__tagline">Pedas yang bikin nagih.</p>
+        <a class="btn hero__cta" href="order.html">Pesan Sekarang →</a>
+      </div>
+      <div class="hero__scrollhint" aria-hidden="true">scroll</div>
+    </section>
+
+    <!-- LIVE QUEUE -->
+    <section class="queue" data-scroll-section>
+      <div class="container queue__inner">
+        <p class="queue__label">Antrian dapur sekarang</p>
+        <div class="queue__count" data-queue-count aria-live="polite">0</div>
+        <p class="queue__tag">pesanan sedang dimasak di dapur kami saat ini.</p>
+      </div>
+    </section>
+
   </main>
 
   <script src="vendor/gsap.min.js"></script>
