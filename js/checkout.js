@@ -110,8 +110,12 @@ function requestGeo() {
   if (!navigator.geolocation) { status.textContent = 'Geolocation tidak tersedia.'; status.className = 'co__loc-status err'; return; }
   status.textContent = 'Mengambil lokasi...'; status.className = 'co__loc-status';
   navigator.geolocation.getCurrentPosition((pos) => {
-    distanceKm = haversineKm(KITCHEN.lat, KITCHEN.lng, pos.coords.latitude, pos.coords.longitude);
-    status.textContent = `Jarak: ${distanceKm.toFixed(1)} km · Ongkir: ${formatRupiah(deliveryFee(distanceKm))}`;
+    const lat = pos.coords.latitude, lng = pos.coords.longitude;
+    const acc = Math.round(pos.coords.accuracy || 0);
+    distanceKm = haversineKm(KITCHEN.lat, KITCHEN.lng, lat, lng);
+    status.innerHTML = `Jarak: <strong>${distanceKm.toFixed(1)} km</strong> · Ongkir: <strong>${formatRupiah(deliveryFee(distanceKm))}</strong>
+      <br><small>Lokasimu: ${lat.toFixed(5)}, ${lng.toFixed(5)} (akurasi ±${acc}m)
+      · Dapur: ${KITCHEN.lat}, ${KITCHEN.lng}</small>`;
     status.className = 'co__loc-status ok';
     recalcTotals();
   }, (err) => {

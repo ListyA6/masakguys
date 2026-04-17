@@ -37,11 +37,11 @@
           <button type="button" class="btn btn--ghost" data-geo>📍 Bagikan Lokasi</button>
           <div class="co__loc-status" data-geo-status>Belum ada lokasi. Klik tombol di atas untuk bagikan lokasimu.</div>
         </div>
-        <label>Alamat Lengkap <span class="req">*</span>
-          <textarea name="alamat" required rows="3" placeholder="Jalan, nomor rumah, patokan..."></textarea>
+        <label>Patokan <span class="req">*</span>
+          <textarea name="alamat" required rows="3" placeholder="Contoh: rumah warna biru, sebelah warung Bu Tini, pagar putih..."></textarea>
         </label>
-        <label>Foto depan rumah / bangunan <span class="opt">(opsional, bantu kurir menemukanmu)</span>
-          <input type="file" name="front_photo" accept="image/*" capture="environment" data-front-photo />
+        <label>Foto depan rumah / bangunan <span class="opt">(opsional — ambil foto atau pilih dari galeri)</span>
+          <input type="file" name="front_photo" accept="image/*" data-front-photo />
         </label>
         <div class="co__photo-preview" data-photo-preview hidden>
           <img alt="Foto depan" />
