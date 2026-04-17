@@ -52,8 +52,93 @@ const API = (() => {
     // chat mock: canned replies after 1.5s
     async sendChatMessage(session_id, text) {
       await delay();
-      // In frontend phase, admin replies are produced by chat-widget.js timers, not here.
       return { ok: true };
+    },
+
+    async submitOrder({ customer, items, location, payment }) {
+      await delay();
+
+      // upsert customer
+      let cust = MOCK.customers.find(c => c.wa === customer.wa);
+      if (!cust) {
+        cust = { wa: customer.wa, nama: customer.nama, order_count: 0, total_spend: 0, last_order_at: null };
+        MOCK.customers.push(cust);
+      } else if (customer.nama) {
+        cust.nama = customer.nama;
+      }
+
+      // compute subtotal from live menu prices
+      const subtotal = items.reduce((s, it) => {
+        const m = MOCK.menus.find(x => x.id === it.menu_id);
+        return s + (m ? m.harga : 0) * it.qty;
+      }, 0);
+      const ongkir = deliveryFee(location.distance_km);
+      const total = subtotal + ongkir;
+
+      // deduct ingredient stock per recipe
+      for (const it of items) {
+        const m = MOCK.menus.find(x => x.id === it.menu_id);
+        if (!m) continue;
+        for (const r of m.recipe) {
+          const ing = MOCK.ingredients.find(i => i.id === r.ingredient_id);
+          if (ing) ing.stock = Math.max(0, ing.stock - r.qty * it.qty);
+        }
+      }
+
+      const order = {
+        id: 'ord-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        brand: 'pedesan',
+        customer: { ...customer },
+        items: items.map(i => ({ ...i })),
+        location: { ...location },
+        subtotal, ongkir, total,
+        payment: { ...payment, paid: false },
+        status: 'Diterima',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        staff_log: []
+      };
+      MOCK.orders.push(order);
+
+      cust.order_count += 1;
+      cust.total_spend += total;
+      cust.last_order_at = order.created_at;
+
+      // bump cross-brand queue counter
+      MOCK.queue.total += 1;
+      MOCK.queue.by_brand.pedesan = (MOCK.queue.by_brand.pedesan || 0) + 1;
+
+      return { ...order };
+    },
+
+    async getOrder(id) {
+      await delay();
+      const o = MOCK.orders.find(x => x.id === id);
+      return o ? { ...o } : null;
+    },
+
+    async advanceStatus(id) {
+      await delay();
+      const o = MOCK.orders.find(x => x.id === id);
+      if (!o) return null;
+      const seq = ['Diterima','Dikonfirmasi','Dimasak','Siap','Diantar','Selesai'];
+      const idx = seq.indexOf(o.status);
+      if (idx >= 0 && idx < seq.length - 1) {
+        o.status = seq[idx + 1];
+        o.updated_at = new Date().toISOString();
+        if (o.status === 'Selesai') {
+          MOCK.queue.total = Math.max(0, MOCK.queue.total - 1);
+          MOCK.queue.by_brand.pedesan = Math.max(0, (MOCK.queue.by_brand.pedesan || 1) - 1);
+        }
+      }
+      return { ...o };
+    },
+
+    async markPaid(id) {
+      await delay();
+      const o = MOCK.orders.find(x => x.id === id);
+      if (o) { o.payment.paid = true; o.updated_at = new Date().toISOString(); }
+      return o ? { ...o } : null;
     }
   };
 })();
