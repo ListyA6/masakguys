@@ -1,8 +1,8 @@
 // js/landing.js
 document.addEventListener('DOMContentLoaded', async () => {
-  // Locomotive smooth scroll
+  let loco = null;
   if (window.LocomotiveScroll) {
-    new LocomotiveScroll({
+    loco = new LocomotiveScroll({
       el: document.querySelector('[data-scroll-container]'),
       smooth: true, lerp: 0.08, multiplier: 1
     });
@@ -38,6 +38,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
       </article>
     `).join('');
+  }
+
+  // Masak dengan Hati — panel progression (no GSAP pinning needed; uses sticky + scroll progress)
+  const pin = document.querySelector('[data-story-pin]');
+  if (pin) {
+    const panels = pin.querySelectorAll('.story__panel');
+    const onScroll = () => {
+      const r = pin.getBoundingClientRect();
+      const total = pin.offsetHeight - window.innerHeight;
+      const progress = clamp(-r.top / total, 0, 1);
+      const active = Math.min(panels.length - 1, Math.floor(progress * panels.length));
+      panels.forEach((p, i) => p.classList.toggle('is-active', i === active));
+    };
+    if (loco) loco.on('scroll', onScroll);
+    else window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
 });
 
