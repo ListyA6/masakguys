@@ -148,8 +148,55 @@ async function setLove(m, loved) {
   el.querySelector('[data-love-count]').textContent = count;
 }
 
-function openCart() { document.querySelector('[data-cart-sheet]').hidden = false; }
+function openCart() {
+  renderCart();
+  document.querySelector('[data-cart-sheet]').hidden = false;
+}
 function closeCart() { document.querySelector('[data-cart-sheet]').hidden = true; }
+
+function renderCart() {
+  const items = Store.cart.get();
+  const body = document.querySelector('[data-cart-body]');
+  const cta = document.querySelector('.cart-sheet__cta');
+
+  if (items.length === 0) {
+    body.innerHTML = `<p class="cart-empty">Keranjang masih kosong.</p>`;
+    document.querySelector('[data-cart-subtotal]').textContent = formatRupiah(0);
+    cta.setAttribute('aria-disabled', 'true');
+    return;
+  }
+
+  let subtotal = 0;
+  body.innerHTML = items.map(it => {
+    const m = MENUS.find(x => x.id === it.menu_id);
+    if (!m) return '';
+    const line = m.harga * it.qty;
+    subtotal += line;
+    return `
+      <div class="cart-row">
+        <div>
+          <div class="cart-row__nama">${m.nama}</div>
+          <div class="cart-row__meta">${formatRupiah(m.harga)} × ${it.qty}</div>
+          ${it.catatan ? `<div class="cart-row__catatan">"${escapeHtml(it.catatan)}"</div>` : ''}
+          <button class="cart-row__remove" data-remove="${m.id}">Hapus</button>
+        </div>
+        <div class="cart-row__price">${formatRupiah(line)}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.querySelector('[data-cart-subtotal]').textContent = formatRupiah(subtotal);
+  cta.removeAttribute('aria-disabled');
+
+  body.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      Store.cart.setQty(btn.dataset.remove, 0);
+      renderCart(); renderFeed(); updateCartBadge();
+    });
+  });
+}
+
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
 function updateCartBadge() {
   const badge = document.querySelector('[data-cart-badge]');
