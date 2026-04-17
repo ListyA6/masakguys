@@ -2,6 +2,7 @@
 let MENUS = [];
 let KITCHEN = null;
 let distanceKm = null;
+let frontPhotoDataUrl = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   MENUS = await API.getMenus('pedesan');
@@ -22,6 +23,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // listeners
   document.querySelector('[data-geo]').addEventListener('click', requestGeo);
+
+  // front-building photo (optional)
+  const photoInput = document.querySelector('[data-front-photo]');
+  const preview = document.querySelector('[data-photo-preview]');
+  photoInput.addEventListener('change', async () => {
+    const file = photoInput.files?.[0];
+    if (!file) return;
+    frontPhotoDataUrl = await fileToDataUrl(file);
+    preview.querySelector('img').src = frontPhotoDataUrl;
+    preview.hidden = false;
+  });
+  document.querySelector('[data-photo-clear]').addEventListener('click', () => {
+    photoInput.value = '';
+    frontPhotoDataUrl = null;
+    preview.hidden = true;
+  });
 
   document.querySelectorAll('[name=payment]').forEach(r => r.addEventListener('change', onPaymentChange));
   const cashInput = document.querySelector('[name=cash_given]');
@@ -135,7 +152,7 @@ async function onSubmit(e) {
   const order = await API.submitOrder({
     customer: { nama: fd.get('nama'), wa: fd.get('wa') },
     items,
-    location: { distance_km: distanceKm, alamat: fd.get('alamat') },
+    location: { distance_km: distanceKm, alamat: fd.get('alamat'), front_photo: frontPhotoDataUrl },
     payment
   });
 
@@ -145,3 +162,12 @@ async function onSubmit(e) {
 }
 
 function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function fileToDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}

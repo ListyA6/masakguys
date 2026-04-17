@@ -46,6 +46,15 @@
 
 .co__tunai { display: grid; gap: var(--s-2); }
 [hidden] { display: none !important; }
+
+.co__section .opt { color: var(--fg-2); font-size: var(--fs-xs); font-weight: 400; }
+.co__section input[type=file] { padding: var(--s-2); }
+.co__photo-preview { position: relative; margin-top: var(--s-2); width: 160px; }
+.co__photo-preview img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: var(--r-2); border: 1px solid rgba(255,255,255,.08); }
+.co__photo-preview button {
+  position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--danger); color: #fff; border: 0; font-size: 16px; line-height: 1; cursor: pointer;
+}
 .co__change { font-weight: 700; color: var(--accent-2); }
 .co__change.err { color: var(--danger); }
 .co__pay-note { color: var(--fg-1); font-size: var(--fs-sm); background: rgba(255,255,255,.03); padding: var(--s-3); border-radius: var(--r-2); }

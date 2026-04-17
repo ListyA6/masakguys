@@ -40,6 +40,13 @@
         <label>Alamat Lengkap <span class="req">*</span>
           <textarea name="alamat" required rows="3" placeholder="Jalan, nomor rumah, patokan..."></textarea>
         </label>
+        <label>Foto depan rumah / bangunan <span class="opt">(opsional, bantu kurir menemukanmu)</span>
+          <input type="file" name="front_photo" accept="image/*" capture="environment" data-front-photo />
+        </label>
+        <div class="co__photo-preview" data-photo-preview hidden>
+          <img alt="Foto depan" />
+          <button type="button" data-photo-clear aria-label="Hapus foto">×</button>
+        </div>
       </section>
 
       <section class="co__section">
