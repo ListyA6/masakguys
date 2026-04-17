@@ -83,3 +83,19 @@
 .ctaband__inner { display: flex; flex-direction: column; gap: var(--s-5); align-items: center; text-align: center; }
 .ctaband h2 { font-size: clamp(var(--fs-3xl), 7vw, 120px); }
 .btn--lg { padding: var(--s-4) var(--s-7); font-size: var(--fs-lg); }
+.footer { padding: var(--s-9) 0 var(--s-6); background: var(--bg-1); border-top: 1px solid rgba(255,255,255,.06); }
+.footer__grid { display: grid; gap: var(--s-7); grid-template-columns: 1.4fr 1fr; }
+@media (max-width: 720px) { .footer__grid { grid-template-columns: 1fr; } }
+.footer h3 { font-family: var(--font-display); font-size: var(--fs-2xl); letter-spacing: .02em; margin-bottom: var(--s-4); }
+.feedback-form { display: flex; flex-direction: column; gap: var(--s-3); max-width: 520px; }
+.feedback-form label { display: flex; flex-direction: column; gap: var(--s-1); color: var(--fg-1); font-size: var(--fs-sm); }
+.feedback-form .opt { color: var(--fg-2); font-size: var(--fs-xs); }
+.feedback-form .req { color: var(--accent); }
+.feedback-form input, .feedback-form textarea {
+  padding: var(--s-3); border-radius: var(--r-2);
+  background: var(--bg-2); color: var(--fg-0);
+  border: 1px solid rgba(255,255,255,.08); font: inherit;
+}
+.feedback-form__ok { color: var(--success); }
+.footer__chat p { color: var(--fg-1); }
+.footer__fine { text-align: center; color: var(--fg-2); font-size: var(--fs-xs); margin-top: var(--s-7); }

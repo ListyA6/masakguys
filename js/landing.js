@@ -55,6 +55,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     else window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
+
+  // Kritik & saran
+  const form = document.querySelector('[data-feedback-form]');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      await API.submitFeedback({
+        nama: fd.get('nama') || null,
+        wa: fd.get('wa') || null,
+        pesan: fd.get('pesan')
+      });
+      form.reset();
+      form.querySelector('.feedback-form__ok').hidden = false;
+      setTimeout(() => { form.querySelector('.feedback-form__ok').hidden = true; }, 4000);
+    });
+  }
+
+  // Footer "Chat Admin" button opens the floating widget
+  const openBtn = document.querySelector('[data-open-chat]');
+  if (openBtn) openBtn.addEventListener('click', () => document.querySelector('.chat-fab')?.click());
 });
 
 function animateCount(el, from, to, duration) {

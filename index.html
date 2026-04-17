@@ -92,6 +92,34 @@
       </div>
     </section>
 
+    <!-- FOOTER: kritik & saran + chat trigger only -->
+    <footer class="footer" data-scroll-section>
+      <div class="container footer__grid">
+        <section class="footer__feedback">
+          <h3>Kritik & Saran</h3>
+          <form data-feedback-form class="feedback-form">
+            <label>Nama <span class="opt">(opsional)</span>
+              <input type="text" name="nama" />
+            </label>
+            <label>WhatsApp <span class="opt">(opsional)</span>
+              <input type="tel" name="wa" />
+            </label>
+            <label>Pesan <span class="req">*</span>
+              <textarea name="pesan" required rows="4"></textarea>
+            </label>
+            <button class="btn" type="submit">Kirim</button>
+            <p class="feedback-form__ok" hidden>Terima kasih! Masukanmu sudah masuk ke admin.</p>
+          </form>
+        </section>
+        <section class="footer__chat">
+          <h3>Butuh bantuan langsung?</h3>
+          <p>Tim admin kami siap menjawab kapan saja.</p>
+          <button class="btn btn--ghost" data-open-chat>Chat Admin</button>
+        </section>
+      </div>
+      <p class="footer__fine">© MasakGuys · Pedesan · Kediri</p>
+    </footer>
+
   </main>
 
   <script src="vendor/gsap.min.js"></script>
