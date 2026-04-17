@@ -1,0 +1,58 @@
+/* css/status.css */
+.st-header {
+  position: sticky; top: 0; z-index: var(--z-nav);
+  display: grid; grid-template-columns: 48px 1fr 48px; align-items: center;
+  padding: var(--s-3) var(--s-4);
+  background: rgba(14,11,10,.9); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.st-header__home { font-size: 20px; text-align: center; }
+.st-header h1 { font-family: var(--font-display); font-size: var(--fs-xl); letter-spacing: .06em; text-align: center; }
+
+.st { max-width: 640px; padding: var(--s-5) var(--s-5) 120px; display: grid; gap: var(--s-5); }
+.st__head { display: flex; justify-content: space-between; color: var(--fg-1); font-size: var(--fs-sm); }
+.st__head strong { color: var(--fg-0); }
+
+.tracker { display: flex; justify-content: space-between; position: relative; padding: var(--s-4) 0 var(--s-6); }
+.tracker::before {
+  content: ''; position: absolute; left: 7%; right: 7%; top: calc(var(--s-4) + 16px);
+  height: 3px; background: rgba(255,255,255,.08); border-radius: var(--r-full);
+}
+.tracker__fill {
+  position: absolute; left: 7%; top: calc(var(--s-4) + 16px); height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: var(--r-full); width: 0; transition: width var(--d-slow) var(--ease-out);
+}
+.tr-step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: var(--s-2); position: relative; z-index: 1; }
+.tr-step__dot {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--bg-2); border: 2px solid rgba(255,255,255,.1);
+  display: grid; place-items: center; color: var(--fg-2); font-weight: 700;
+  transition: all var(--d-base) var(--ease-out);
+}
+.tr-step.is-done .tr-step__dot { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tr-step.is-active .tr-step__dot { background: var(--accent); border-color: var(--accent); color: #fff; animation: step-pulse 1.4s ease-out infinite; }
+@keyframes step-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,59,31,.5); } 50% { box-shadow: 0 0 0 10px rgba(255,59,31,0); } }
+.tr-step__label { font-size: var(--fs-xs); color: var(--fg-2); text-align: center; }
+.tr-step.is-done .tr-step__label, .tr-step.is-active .tr-step__label { color: var(--fg-0); }
+
+.st-card { background: var(--bg-1); border-radius: var(--r-3); padding: var(--s-5); border: 1px solid rgba(255,255,255,.05); }
+.st-card--phase { display: grid; grid-template-columns: 72px 1fr; gap: var(--s-4); align-items: center; }
+.st-card__icon { font-size: 48px; }
+.st-card__phase { font-family: var(--font-display); font-size: var(--fs-xl); letter-spacing: .04em; }
+.st-card__copy { color: var(--fg-1); margin-top: var(--s-1); }
+
+.st-pay { background: rgba(255,164,27,.1); border: 1px solid rgba(255,164,27,.3); border-radius: var(--r-3); padding: var(--s-4); }
+.st-pay h3 { font-family: var(--font-display); font-size: var(--fs-lg); letter-spacing: .04em; margin-bottom: var(--s-2); }
+.st-pay__qris img { width: 200px; height: 200px; object-fit: contain; background: #fff; padding: var(--s-3); border-radius: var(--r-2); margin: var(--s-2) 0; }
+.st-pay__rek { display: flex; gap: var(--s-2); align-items: center; }
+.st-pay__rek code { background: var(--bg-2); padding: var(--s-2) var(--s-3); border-radius: var(--r-2); font-size: var(--fs-md); }
+
+.st-detail { background: var(--bg-1); border-radius: var(--r-3); padding: var(--s-5); border: 1px solid rgba(255,255,255,.05); }
+.st-detail summary { cursor: pointer; font-family: var(--font-display); font-size: var(--fs-lg); letter-spacing: .04em; list-style: none; }
+.st-detail summary::marker, .st-detail summary::-webkit-details-marker { display: none; }
+.st-detail[open] summary::after { content: ' ▲'; }
+.st-detail summary::after { content: ' ▼'; font-size: var(--fs-sm); }
+.st-detail__row { display: flex; justify-content: space-between; padding: var(--s-2) 0; border-bottom: 1px solid rgba(255,255,255,.04); }
+.st-detail__grand { display: flex; justify-content: space-between; padding-top: var(--s-3); margin-top: var(--s-2); border-top: 1px solid rgba(255,255,255,.08); font-weight: 700; }
+.st-detail__cat { display: block; color: var(--fg-1); font-size: var(--fs-sm); font-style: italic; }
