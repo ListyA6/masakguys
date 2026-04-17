@@ -29,7 +29,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   document.querySelectorAll('[name=payment]').forEach(r => r.addEventListener('change', onPaymentChange));
-  document.querySelector('[name=cash_given]').addEventListener('input', () => { recalcTotals(); });
+  const cashInput = document.querySelector('[name=cash_given]');
+  cashInput.addEventListener('input', (e) => {
+    const raw = e.target.value.replace(/\D/g, '');
+    e.target.value = raw ? parseInt(raw, 10).toLocaleString('id-ID') : '';
+    recalcTotals();
+  });
 
   document.querySelector('[data-form]').addEventListener('submit', onSubmit);
   document.querySelector('[data-form]').addEventListener('input', () => validateForm());
@@ -66,7 +71,7 @@ function recalcTotals() {
   // tunai change
   const paySel = document.querySelector('[name=payment]:checked')?.value;
   if (paySel === 'tunai') {
-    const cash = parseInt(document.querySelector('[name=cash_given]').value, 10) || 0;
+    const cash = parseInt((document.querySelector('[name=cash_given]').value || '').replace(/\D/g, ''), 10) || 0;
     const change = cash - total;
     const el = document.querySelector('[data-change]');
     if (cash === 0) { el.textContent = 'Kembalian: Rp0'; el.className = 'co__change'; }
@@ -110,7 +115,7 @@ function validateForm() {
     fd.get('nama') && fd.get('wa') && fd.get('alamat') && fd.get('payment') &&
     distanceKm != null &&
     (fd.get('payment') !== 'tunai' ||
-      (parseInt(fd.get('cash_given'), 10) || 0) >= currentTotal());
+      (parseInt((fd.get('cash_given') || '').replace(/\D/g, ''), 10) || 0) >= currentTotal());
   document.querySelector('.co__submit').disabled = !ok;
 }
 
@@ -130,7 +135,7 @@ async function onSubmit(e) {
   const fd = new FormData(form);
   const items = Store.cart.get();
   const payment = { method: fd.get('payment') };
-  if (payment.method === 'tunai') payment.cash_given = parseInt(fd.get('cash_given'), 10) || 0;
+  if (payment.method === 'tunai') payment.cash_given = parseInt((fd.get('cash_given') || '').replace(/\D/g, ''), 10) || 0;
 
   const order = await API.submitOrder({
     customer: { nama: fd.get('nama'), wa: fd.get('wa') },
