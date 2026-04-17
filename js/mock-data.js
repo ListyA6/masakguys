@@ -35,7 +35,7 @@ const MOCK = {
   queue: { total: 14, by_brand: { pedesan: 8, nasi_goreng: 6 } },
 
   // kitchen origin (for distance calc)
-  kitchen_coord: { lat: -7.8167, lng: 112.0167 }, // Kediri approx
+  kitchen_coord: { lat: -7.8205, lng: 112.0122 }, // 52HF+V2 Banjaran, Kota Kediri
 
   orders: [], // populated at runtime
   customers: [],

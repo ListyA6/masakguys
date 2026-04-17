@@ -22,11 +22,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // listeners
   document.querySelector('[data-geo]').addEventListener('click', requestGeo);
-  document.querySelector('[data-manual-tier]').addEventListener('change', (e) => {
-    const v = parseFloat(e.target.value);
-    if (v) { distanceKm = v; document.querySelector('[data-geo-status]').textContent = `Jarak manual: ${v} km`; document.querySelector('[data-geo-status]').className = 'co__loc-status ok'; }
-    recalcTotals();
-  });
 
   document.querySelectorAll('[name=payment]').forEach(r => r.addEventListener('change', onPaymentChange));
   const cashInput = document.querySelector('[name=cash_given]');
@@ -103,7 +98,7 @@ function requestGeo() {
     status.className = 'co__loc-status ok';
     recalcTotals();
   }, (err) => {
-    status.textContent = `Gagal ambil lokasi (${err.message}). Gunakan pilihan manual di bawah.`;
+    status.textContent = `Gagal ambil lokasi (${err.message}). Izinkan akses lokasi di browser lalu coba lagi.`;
     status.className = 'co__loc-status err';
   }, { enableHighAccuracy: true, timeout: 10000 });
 }
