@@ -1,0 +1,30 @@
+/* css/base.css — reset, typography, utilities */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg-0);
+  color: var(--fg-0);
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, video { display: block; max-width: 100%; height: auto; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: .02em; margin: 0; line-height: 1; }
+p { margin: 0 0 var(--s-4); }
+
+/* utilities */
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--s-5); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: var(--s-3) var(--s-5); border-radius: var(--r-full); border: 0;
+  background: var(--accent); color: #fff; font-weight: 600;
+  transition: transform var(--d-fast) var(--ease-out), background var(--d-fast);
+}
+.btn:hover { background: var(--accent-2); }
+.btn:active { transform: scale(.96); }
+.btn--ghost { background: transparent; border: 1px solid var(--fg-2); color: var(--fg-0); }
