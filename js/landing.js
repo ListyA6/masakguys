@@ -22,6 +22,23 @@ document.addEventListener('DOMContentLoaded', async () => {
       animateCount(el, current, fresh.total, 700);
     }, 6000);
   }
+
+  // Highlights — signature menu carousel rail
+  const rail = document.querySelector('[data-highlights-rail]');
+  if (rail) {
+    const menus = await API.getMenus('pedesan');
+    const top4 = menus.filter(m => m.kategori === 'makanan').slice(0, 4);
+    rail.innerHTML = top4.map(m => `
+      <article class="highlight-card">
+        <img src="${m.media[0].src}" alt="${m.nama}" loading="lazy" />
+        <div class="highlight-card__body">
+          <div class="highlight-card__nama">${m.nama}</div>
+          <p class="highlight-card__desc">${m.deskripsi}</p>
+          <div class="highlight-card__price">${formatRupiah(m.harga)}</div>
+        </div>
+      </article>
+    `).join('');
+  }
 });
 
 function animateCount(el, from, to, duration) {
